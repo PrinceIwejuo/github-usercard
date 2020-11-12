@@ -1,8 +1,16 @@
+import axios from "axios";
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const info = axios.get("https://api.github.com/users/PrinceIwejuo")
+
+console.log(info)
+
+info.then(specificInfo => {
+  console.log(specificInfo)
+})
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,7 +57,39 @@ const followersArray = [];
       </div>
     </div>
 */
+const entryPoint = document.querySelector('.card')
+function cardMaker(specificInfo) {
+  const card = document.createElement('div')
+  const cardImg = document.createElement('img-src')
+  const cardInfo = document.createElement('div')
+  const name = document.createElement('h3')
+  const username = document.createElement('p')
+  const cardLocation = document.createElement('p')
+  const profile = document.createElement('p')
+  const aTag = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
 
+  card.classList.add('card')
+  cardInfo.classList.add('card-info')
+  name.classList.add('name')
+  username.classList.add('username')
+
+  card.appendChild(cardImg)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(cardLocation)
+  cardInfo.appendChild(profile)
+  profile.appendChild(aTag)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+
+  return card
+}
+
+console.log(info)
 /*
   List of LS Instructors Github username's:
     tetondan
