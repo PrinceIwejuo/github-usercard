@@ -1,8 +1,40 @@
+import axios from "axios"
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const cardBody = document.querySelector(".cards");
+
+function createCard(name) {
+  axios
+    .get(`https://api.github.com/users/PrinceIwejuo`)
+    .then((incomData) => {
+      const newData = incomData.data;
+      const newCard = cardMaker({
+        avatar_url: newData.avatar_url,
+        name: newData.name,
+        login: newData.login,
+        location: newData.location,
+        html_url: newData.html_url,
+        followers: newData.followers,
+        following: newData.following,
+        bio: newData.bio,
+      });
+      cardBody.appendChild(newCard);
+      console.log(newCard);
+    })
+    .catch(() => {
+
+    });
+}
+// const info = axios.get("https://api.github.com/users/PrinceIwejuo")
+
+// console.log(info)
+
+// info.then(specificInfo => {
+//   console.log(specificInfo)
+// })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +60,13 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +87,95 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function cardMaker({
+  avatar_url,
+  name,
+  login,
+  location,
+  html_url,
+  followers,
+  following,
+  bio,
+}) {
+  const card = document.createElement("div");
+  const image = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const cardName = document.createElement("h3");
+  const cardUsername = document.createElement("p");
+  const locat = document.createElement("p");
+  const profile = document.createElement("p");
+  const profLink = document.createElement("a");
+  const cardFollowers = document.createElement("p");
+  const cardFollowing = document.createElement("p");
+  const cardBio = document.createElement("p");
+
+  card.appendChild(image);
+  card.appendChild(cardInfo);
+  card.appendChild(cardName);
+  card.appendChild(cardUsername);
+  card.appendChild(locat);
+  card.appendChild(profile);
+  card.appendChild(cardFollowers);
+  card.appendChild(cardFollowing);
+  card.appendChild(cardBio);
+  card.appendChild(profLink);
+
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  cardName.classList.add("name");
+  cardUsername.classList.add("username");
+
+  image.src = avatar_url;
+  cardName.textContent = name;
+  cardUsername.textContent = login;
+  locat.textContent = location;
+  profLink.textContent = html_url;
+  profLink.textContent = html_url;
+  cardFollowers.textContent = `Followers: ${followers}`;
+  cardFollowing.textContent = `Following: ${following}`;
+  cardBio.textContent = `Bio: ${bio}`;
+
+  return card;
+}
+
+followersArray.forEach((name) => {
+  createCard(name);
+});
+
+// const entryPoint = document.querySelector('.card')
+// function cardMaker(specificInfo) {
+//   const card = document.createElement('div')
+//   const cardImg = document.createElement('img-src')
+//   const cardInfo = document.createElement('div')
+//   const name = document.createElement('h3')
+//   const username = document.createElement('p')
+//   const cardLocation = document.createElement('p')
+//   const profile = document.createElement('p')
+//   const aTag = document.createElement('a')
+//   const followers = document.createElement('p')
+//   const following = document.createElement('p')
+//   const bio = document.createElement('p')
+
+//   card.classList.add('card')
+//   cardInfo.classList.add('card-info')
+//   name.classList.add('name')
+//   username.classList.add('username')
+
+//   card.appendChild(cardImg)
+//   cardInfo.appendChild(name)
+//   cardInfo.appendChild(username)
+//   cardInfo.appendChild(cardLocation)
+//   cardInfo.appendChild(profile)
+//   profile.appendChild(aTag)
+//   cardInfo.appendChild(followers)
+//   cardInfo.appendChild(following)
+//   cardInfo.appendChild(bio)
+
+//   return card
+// }
+
+// console.log(info)
 
 /*
   List of LS Instructors Github username's:
